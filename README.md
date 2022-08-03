@@ -1,3 +1,4 @@
-# ExampleDockerApp
+# Folder Structure
 
-A docker tutorial 
+ca: Sample Certificiate Authority Workflow
+docker: Sample Docker Compose Workflow; with sample frontend and backend
