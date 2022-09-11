@@ -1,5 +1,12 @@
 import requests
+from flask import Flask, render_template
 
-x = requests.get('http://172.17.0.2:5000/api/')
+app = Flask(__name__)
 
-print(x.text)
+if __name__ == '__main__':
+    app.run(debug=True)
+
+@app.route("/")
+def home():
+    x = requests.get('http://backend:5000/api/')
+    return render_template('example.html', data = x.json()['data'])

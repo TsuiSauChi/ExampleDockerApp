@@ -9,7 +9,7 @@ def hello_geek():
 @app.route("/api/")
 def hello_world():
     return jsonify({
-        "data": "Hello World"
+        "data": "Potato Man"
     })
 
 if __name__ == '__main__':
