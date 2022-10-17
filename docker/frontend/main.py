@@ -8,5 +8,5 @@ if __name__ == '__main__':
 
 @app.route("/")
 def home():
-    x = requests.get('http://backend:5000/api/')
-    return render_template('example.html', data = x.json()['data'])
+    x = requests.get('http://backend:5000/')
+    return render_template('example.html', data = x.text)

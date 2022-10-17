@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   backend:
     build: ./backend
@@ -5,3 +7,12 @@ services:
       - "8000:5000"
   frontend:
     build: ./frontend
+    ports:
+      - "5000:5000"
+  db:
+    image: postgres 
+    restart: always
+    environment: 
+      POSTGRES_PASSWORD: example
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
