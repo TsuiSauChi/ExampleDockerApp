@@ -1,6 +1,7 @@
 import json
 from flask import Flask, jsonify
 import psycopg2
+import os
 
 app = Flask(__name__)
 
@@ -9,7 +10,7 @@ def connection():
         dbname="postgres",
         user="postgres",
         password="example",
-        host="docker_db_1"
+        host=os.getenv('DATABASE_ADDRESS')
     )
     return conn
 
