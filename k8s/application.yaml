@@ -1,0 +1,89 @@
+# NodePort: For External Access
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-access
+spec:
+  selector:
+    external: external-access
+  type: NodePort
+  ports:
+    - protocol: TCP 
+      nodePort: 30005
+      port: 80
+      targetPort: frontend-port
+
+---
+
+# ClusterIP Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec: 
+  selector:
+    app-service: backend
+  ports:
+    - protocol: TCP 
+      port: 81
+      targetPort: 5000
+  
+
+---
+
+# Frontend Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 3
+  selector: 
+    matchLabels:
+      app: frontend 
+  template:
+    metadata:
+      labels:
+        app: frontend
+        external: external-access
+    spec:
+      containers:
+        - name: example-frontend
+          image: jamestsui/example-frontend:latest
+          # Set env variable to connect to frontend service
+          env:
+            - name: BACKEND_ADDRESS
+              value: "http://backend-service"
+            - name: BACKEND_PORT
+              value: "5000"
+          ports:
+            - name: frontend-port
+              containerPort: 5000
+
+---
+
+# Backend Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+        app-service: backend
+    spec:
+      containers:
+        - name: example-backend
+          image: jamestsui/example-backend:latest
+          # Set env variable to connect to database service
+          env:
+            - name: DATABASE_ADDRESS
+              value: "database-service"
+          ports:
+            - containerPort: 5000

@@ -1,15 +1,13 @@
-# NodePort: For External Testing
+# ClusterIP Service
 apiVersion: v1
 kind: Service
 metadata:
-  name: testing
+  name: database-service
 spec:
   selector:
-    test: external-testing
-  type: NodePort
+    app-service: database
   ports:
     - protocol: TCP 
-      nodePort: 30000
       port: 5432
       targetPort: postgres-port
 
@@ -69,7 +67,7 @@ spec:
     metadata:
       labels:
         app: postgres-pod
-        test: external-testing
+        app-service: database
     spec:
       volumes:
         - name: postgres-startup-script 
