@@ -16,6 +16,7 @@ def connection():
 
 @app.route('/')
 def hello_geek():
+    print("Backend Execute")
     conn = connection()
     cur = conn.cursor()
 

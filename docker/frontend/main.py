@@ -12,5 +12,6 @@ port = os.getenv('BACKEND_PORT')
 
 @app.route("/")
 def home():
+    print("Frontend Execute")
     x = requests.get(host + ":" + port)
     return render_template('example.html', data = x.text)
