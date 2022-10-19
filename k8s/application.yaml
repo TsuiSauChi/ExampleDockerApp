@@ -1,36 +1,3 @@
-# NodePort: For External Access
-apiVersion: v1
-kind: Service
-metadata:
-  name: frontend-access
-spec:
-  selector:
-    external: external-access
-  type: NodePort
-  ports:
-    - protocol: TCP 
-      nodePort: 30005
-      port: 80
-      targetPort: frontend-port
-
----
-
-# ClusterIP Service
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend-service
-spec: 
-  selector:
-    app-service: backend
-  ports:
-    - protocol: TCP 
-      port: 81
-      targetPort: 5000
-  
-
----
-
 # Frontend Deployment
 apiVersion: apps/v1
 kind: Deployment
@@ -45,7 +12,7 @@ spec:
     metadata:
       labels:
         app: frontend
-        external: external-access
+        external-access: external-access
     spec:
       containers:
         - name: example-frontend
@@ -55,7 +22,8 @@ spec:
             - name: BACKEND_ADDRESS
               value: "http://backend-service"
             - name: BACKEND_PORT
-              value: "5000"
+              # Points to backend-service
+              value: "81"
           ports:
             - name: frontend-port
               containerPort: 5000
