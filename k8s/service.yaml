@@ -6,10 +6,8 @@ metadata:
 spec:
   selector:
     external-access: external-access
-  type: NodePort
   ports:
     - protocol: TCP 
-      nodePort: 30005
       port: 80
       targetPort: 5000
   
