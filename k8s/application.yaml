@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: example-frontend
-          image: jamestsui/example-frontend:latest
+          image: ghcr.io/tsuisauchi/example.frontend:latest
           # Set env variable to connect to frontend service
           env:
             - name: BACKEND_ADDRESS
@@ -48,7 +48,7 @@ spec:
     spec:
       containers:
         - name: example-backend
-          image: jamestsui/example-backend:latest
+          image: ghcr.io/tsuisauchi/example.backend:latest
           # Set env variable to connect to database service
           env:
             - name: DATABASE_ADDRESS
