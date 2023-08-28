@@ -1,20 +1,23 @@
 version: "3.9"
 
 services:
-  example.frontend:
+
+  frontend:
     build: ./frontend
     environment:
       BACKEND_ADDRESS: http://backend
       BACKEND_PORT: 5000
     ports:
       - "5000:5000"
-  example.backend:
+
+  backend:
     build: ./backend
     environment:
-      DATABASE_ADDRESS: docker_db_1
+      DATABASE_ADDRESS: db
     ports: 
       - "8000:5000"
-  example.db:
+      
+  db:
     image: postgres 
     restart: always
     environment: 

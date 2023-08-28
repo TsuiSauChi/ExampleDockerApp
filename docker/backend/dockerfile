@@ -6,4 +6,3 @@ COPY . .
 ENV FLASK_APP=app
 ENTRYPOINT ["flask", "run", "--host=0.0.0.0"]
 EXPOSE 5000
-LABEL org.opencontainers.image.source https://github.com/TsuiSauChi/HyperledgerConcepts
