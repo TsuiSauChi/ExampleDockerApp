@@ -24,8 +24,8 @@ spec:
   selector: 
     matchLabels:
       app: postgres-pod
-  serviceName: postgres-service
-  replicas: 1 
+  serviceName: "postgres-service"
+  replicas: 2
   # Use default StorageClass
   volumeClaimTemplates:
     - metadata:

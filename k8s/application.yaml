@@ -52,6 +52,6 @@ spec:
           # Set env variable to connect to database service
           env:
             - name: DATABASE_ADDRESS
-              value: "database-service"
+              value: "postgres-0.postgres-service.default.svc.cluster.local"
           ports:
             - containerPort: 5000

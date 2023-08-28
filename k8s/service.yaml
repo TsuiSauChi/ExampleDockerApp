@@ -1,15 +1,18 @@
 # NodePort: For External Access
+
 apiVersion: v1
 kind: Service
 metadata:
   name: frontend-access
 spec:
+  type: NodePort
   selector:
     external-access: external-access
   ports:
-    - protocol: TCP 
+    - protocol: TCP
       port: 80
       targetPort: 5000
+      nodePort: 30001
   
 ---
 
@@ -25,22 +28,6 @@ spec:
     - protocol: TCP 
       port: 81
       targetPort: 5000
-  
-
----
-
-# ClusterIP Service
-apiVersion: v1
-kind: Service
-metadata:
-  name: database-service
-spec:
-  selector:
-    app-service: database
-  ports:
-    - protocol: TCP 
-      port: 5432
-      targetPort: postgres-port
 
 ---
 
@@ -50,7 +37,9 @@ kind: Service
 metadata:
   name: postgres-service
 spec:
+  selector:
+    app: postgres-pod
   ports: 
     - port: 5432
-      name: postgres-port
+      name: 
   clusterIP: None
